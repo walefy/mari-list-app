@@ -34,6 +34,7 @@ export const ListItem: React.FC<ListItemProps> = ({ item }) => {
       <Text style={listItemStyles.itemText}>{ item.title }</Text>
       <BouncyCheckbox
         fillColor='#5DAF50'
+        aria-label='checkbox item'
         onPress={(checked) => toggleCompletedItem(checked, item.id)}
       />
     </Pressable>

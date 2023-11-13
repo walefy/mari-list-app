@@ -5,7 +5,7 @@ export const mainStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#282A36',
     marginTop: 20,
-    paddingTop: 10,
+    paddingTop: 20,
   },
   inputContainer: {
     flexDirection: 'row',

@@ -33,7 +33,6 @@ const App = () => {
   return (
     <KeyboardAvoidingView
       style={mainStyles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <FlatList
         style={mainStyles.list}
