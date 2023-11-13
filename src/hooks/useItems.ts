@@ -1,5 +1,6 @@
 import { useMMKV, useMMKVString } from 'react-native-mmkv';
 import { ListItemType } from '../types';
+import { sortByCompleted } from '../utils/sortUtils';
 
 export const useItems = () => {
   const storage = useMMKV();
@@ -16,10 +17,23 @@ export const useItems = () => {
     setItemsString(JSON.stringify(newItemsArray));
   };
 
+  const toggleCompletedItem = (completed: boolean, itemId: string) => {
+    const updatedItems = itemsArray.map((item) => {
+      if (item.id !== itemId) return item;
+
+      return { ...item, completed }
+    });
+
+    const sortedItems = sortByCompleted(updatedItems);
+
+    setItemsString(JSON.stringify(sortedItems));
+  };
+
   return {
     storage,
     itemsArray,
     addItemIntoArray,
     removeItemIntoArray,
+    toggleCompletedItem,
   };
 };

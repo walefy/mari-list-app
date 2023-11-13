@@ -3,25 +3,26 @@ import { ListItemType } from '../types';
 import { Pressable, Text, Alert } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { listItemStyles } from '../styles/styles';
-
+import { useItems } from '../hooks/useItems';
 
 type ListItemProps = {
   item: ListItemType;
-  handleRemoveItem: (id: string) => void;
 };
 
-export const ListItem: React.FC<ListItemProps> = ({ item, handleRemoveItem }) => {
+export const ListItem: React.FC<ListItemProps> = ({ item }) => {
+  const { toggleCompletedItem, removeItemIntoArray } = useItems();
+
   const showConfirmDeleteModal = (id: string) => {
     Alert.alert('Delete item', 'would you like to delete this?', [
       {
-        text: 'Yes',
-        onPress: () => handleRemoveItem(id),
-        style: 'destructive',
-      },
-      {
         text: 'Cancel',
         style: 'cancel',
-      }
+      },
+      {
+        text: 'Yes',
+        onPress: () => removeItemIntoArray(id),
+        style: 'destructive',
+      },
     ]);
   }; 
   
@@ -33,6 +34,7 @@ export const ListItem: React.FC<ListItemProps> = ({ item, handleRemoveItem }) =>
       <Text style={listItemStyles.itemText}>{ item.title }</Text>
       <BouncyCheckbox
         fillColor='#5DAF50'
+        onPress={(checked) => toggleCompletedItem(checked, item.id)}
       />
     </Pressable>
   );

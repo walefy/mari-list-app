@@ -15,9 +15,9 @@ import { useItems } from './src/hooks/useItems';
 import { mainStyles } from './src/styles/styles';
 import { ListItem } from './src/components/ListItem';
 
-export default function App() {
+const App = () => {
   const [itemText, setItemText] = useState('');
-  const { itemsArray, addItemIntoArray, removeItemIntoArray } = useItems();
+  const { itemsArray, addItemIntoArray } = useItems();
 
   const addItem = (item: string) => {
     if (item.trim() === '') return;
@@ -38,8 +38,9 @@ export default function App() {
       <FlatList
         style={mainStyles.list}
         data={ itemsArray }
-        renderItem={({ item }) => <ListItem item={ item } handleRemoveItem={ removeItemIntoArray } />}
+        renderItem={({ item }) => <ListItem item={ item } />}
         keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
       />
       <View style={mainStyles.inputContainer}>
         <TextInput
@@ -58,4 +59,6 @@ export default function App() {
       <StatusBar style="light" backgroundColor='#282A36' />
     </KeyboardAvoidingView>
   );
-}
+};
+
+export default App;
